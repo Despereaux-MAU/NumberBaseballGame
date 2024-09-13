@@ -1,4 +1,4 @@
-package despereaus_numberbaseballgame.NumberBaseballGame.Level1;
+package despereaus_numberbaseballgame.NumberBaseballGame.Level2;
 
 import java.util.HashSet;
 import java.util.ArrayList;

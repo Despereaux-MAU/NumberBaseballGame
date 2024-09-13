@@ -1,0 +1,12 @@
+<StartGame - 3자리수인지 자릿수 검사 및 예외 발생 - 세자리를 입력해도 오류 발생>
+
+for 문 밖에서 예외 선언
+
+<Main - startGame(scanner); - 메서드 호출 필요(오류) 발생>
+
+StartGame.startgame(scanner); 로 변경 후 오류 해결
+
+<Main - StartGame.startGame(scanner); - Main 스캐너로 인식되어 사용 불가>
+
+게임 시작 메소드를 public void startGame(Scanner scanner) 로 변경해서 오류 해결
+
