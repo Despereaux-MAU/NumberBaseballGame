@@ -1,4 +1,4 @@
-package despereaus_numberbaseballgame.NumberBaseballGame.Level2;
+package despereaus_numberbaseballgame.NumberBaseballGame.Level3;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,7 +8,7 @@ import java.util.Set;
 public class GameLogic {
 
     // 랜덤 숫자 생성하기
-    private List<Integer> generateNumber() {
+    public List<Integer> generateNumber() {
         Set<Integer> numberSet = new HashSet<>(); //HashSet으로 중복 없게
         while (numberSet.size() < 3) {
             int randomNumber = (int) (Math.random() * 9) + 1;
@@ -18,8 +18,7 @@ public class GameLogic {
     }
 
     // 스트라이크, 볼, 아웃 계산하기
-    public Result checkGuess(List<Integer> guess) {
-        List<Integer> number = generateNumber(); // 정답을 생성 (랜덤)
+    public Result checkGuess(List<Integer> guess, List<Integer> number) {
         int strike = 0;
         int ball = 0;
         int out = 0;
