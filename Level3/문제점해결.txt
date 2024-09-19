@@ -1,5 +1,0 @@
-<public으로 분명 변경 해뒀는데도 generateNumber가 자꾸 private이라고 뜸>
-
-StartGame이 Level2의 gamelogic을 상속받고 있었음...
-
-
