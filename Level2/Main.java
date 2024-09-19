@@ -16,6 +16,7 @@ public class Main {
                 int choice = scanner.nextInt();
 
                 if (choice == 1) {
+                    scanner.nextLine(); //입력 버퍼 비우기
                     // 게임 시작
                     StartGame startGame = new StartGame();
                     startGame.startGame(scanner);

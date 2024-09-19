@@ -26,6 +26,9 @@ public class Main {
                         if (!duplication.add(input)) { // Set에 추가되지 않으면 중복된 숫자
                             throw new IllegalArgumentException("중복된 숫자를 입력하셨습니다. 다시 입력해 주세요.");
                         }
+                        if (input < 1 || input > 9) { // 1-9 사이의 숫자만 입력이 가능
+                            throw new IllegalArgumentException("숫자는 1부터 9까지 입력이 가능합니다. 다시 입력해 주세요.");
+                        }
                         guess.add(input); //문자가 입력되면 예외 발생
                     }
                     validInput = true; // 정답이면 루프 종료

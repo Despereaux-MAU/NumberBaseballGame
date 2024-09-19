@@ -1,29 +1,25 @@
 package despereaus_numberbaseballgame.NumberBaseballGame.Level2;
 
-import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class BaseballGame {
-    private List<Integer> number;
-
-    public BaseballGame() {
-        generateNumber();
-    }
+public class GameLogic {
 
     // 랜덤 숫자 생성하기
-    private void generateNumber() {
+    private List<Integer> generateNumber() {
         Set<Integer> numberSet = new HashSet<>(); //HashSet으로 중복 없게
         while (numberSet.size() < 3) {
             int randomNumber = (int) (Math.random() * 9) + 1;
             numberSet.add(randomNumber); // 중복된 값 걸러내기
         }
-        number = new ArrayList<>(numberSet); // HashSet을 List로 변경
+        return new ArrayList<>(numberSet); // HashSet을 List로 변환해서 반환
     }
 
     // 스트라이크, 볼, 아웃 계산하기
     public Result checkGuess(List<Integer> guess) {
+        List<Integer> number = generateNumber(); // 정답을 생성 (랜덤)
         int strike = 0;
         int ball = 0;
         int out = 0;
@@ -45,7 +41,7 @@ public class BaseballGame {
     public boolean isCorrect(Result result) {
         return result.getStrike() == 3;
     }
-
+}
     // 결과(스트라이크, 볼)를 저장하는 클래스
     class Result {
         private int strike;
@@ -69,5 +65,4 @@ public class BaseballGame {
         public int getOut() {
             return out;
         }
-    }
 }

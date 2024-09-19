@@ -3,11 +3,13 @@ package despereaus_numberbaseballgame.NumberBaseballGame.Level2;
 import java.util.*;
 
 public class StartGame {
+    GameLogic gameLogic = new GameLogic();
+
+    // 게임을 시작하는 메서드
     public void startGame(Scanner scanner) {
-        BaseballGame baseballGame = new BaseballGame();
         boolean iscorrect = false;
 
-        System.out.print("< 게임을 시작합니다 >");
+        System.out.println("< 게임을 시작합니다 >");
 
         while (!iscorrect) {
             List<Integer> guess = new ArrayList<>();
@@ -15,51 +17,49 @@ public class StartGame {
 
             while (!correctInput) {
 
-                System.out.print("세자리 숫자를 입력해 주세요 (공백으로 구분) : ");
+                System.out.print("1-9까지의 세자리 숫자를 입력해 주세요 (공백으로 구분) : ");
 
                 try {
-                    Set<Integer> duplication = new HashSet<>(); // 중복된 숫자 체크
-                    for (int i = 0; i < 3; i++) {
+                    String inputLine = scanner.nextLine();
+                    String[] inputs = inputLine.split(" "); // 공백을 기준으로 입력 분리
 
-                        // 중복된 숫자가 입력되면 예외 발생
-                        int input = scanner.nextInt();
+                    if (inputs.length != 3) {
+                        throw new IllegalArgumentException("세자리 숫자가 아닙니다. 다시 입력해 주세요.");
+                    }
 
-                        if (!duplication.add(input)) { // Set에 추가되지 않으면 중복된 숫자
+                    Set<Integer> duplication = new HashSet<>(); // 중복된 숫자 체크 Set
+
+                    for (String input : inputs) {
+                        int num;
+
+                        try {
+                            num = Integer.parseInt(input); // 문자열을 숫자로 변환
+                        } catch (NumberFormatException e) {
+                            throw new IllegalArgumentException("1-9 사이의 숫자만 입력이 가능합니다. 다시 입력해 주세요.");
+                        }
+
+                        // 중복된 숫자(Set에 추가되지 않음)가 입력되면 예외 발생
+                        if (!duplication.add(num)) {
                             throw new IllegalArgumentException("중복된 숫자를 입력하셨습니다. 다시 입력해 주세요.");
                         }
-
-                        guess.add(input);
-
-                        //문자가 입력되면 예외 발생
-                        if (!scanner.hasNextInt()) {
-                            throw new InputMismatchException();
+                        // 1-9 사이의 숫자만 입력이 가능
+                        if (num < 1 || num > 9) {
+                            throw new IllegalArgumentException("숫자는 1부터 9까지 입력이 가능합니다. 다시 입력해 주세요.");
                         }
-                    }
 
-                    // 3자리수인지 자릿수 검사 및 예외 발생
-                    if (guess.size() != 3) {
-                        throw new IllegalArgumentException("세자리 숫자만 입력이 가능합니다. 다시 입력해 주세요.");
+                        guess.add(num);
                     }
-
                     correctInput = true; // 정답이면 루프 종료
 
-                } catch (InputMismatchException e) {
-                    System.out.println("문자를 입력하셨습니다. 숫자를 입력해주세요.");
-                    scanner.nextLine(); // 잘못된 입력을 버퍼에서 제거
-                    guess.clear(); // 잘못된 입력을 다시 받을 수 있도록 리스트 초기화
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
-                    scanner.nextLine();
-                    guess.clear();
                 }
             }
-
-            BaseballGame.Result result = baseballGame.checkGuess(guess);
-
+           Result result = gameLogic.checkGuess(guess);
 
             System.out.println(result.getStrike() + " 스트라이크 " + result.getBall() + " 볼 " + result.getOut() + " 아웃 ");
 
-            iscorrect = baseballGame.isCorrect(result);
+            iscorrect = gameLogic.isCorrect(result);
 
             if (iscorrect) {
                 System.out.println("정답입니다!");
