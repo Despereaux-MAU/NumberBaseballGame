@@ -1,17 +1,24 @@
-package despereaus_numberbaseballgame.NumberBaseballGame.Level2;
+package despereaus_numberbaseballgame.NumberBaseballGame.Level3;
 
 import java.util.*;
 
 public class StartGame {
-    GameLogic gameLogic = new GameLogic();
+    private final despereaus_numberbaseballgame.NumberBaseballGame.Level3.GameLogic gameLogic = new GameLogic();
+    private int gameCount = 0; // 총 게임 횟수
+    private List<Integer> attemptsGame = new ArrayList<>(); // 각 게임의 시도 횟수 기록
 
     // 게임을 시작하는 메서드
     public void startGame(Scanner scanner) {
         boolean iscorrect = false;
 
+        List<Integer> number = gameLogic.generateNumber(); //정답 생성
+        gameCount++; // 게임 횟수 증가
+        int attemps = 0; // 시도 횟수
+
         System.out.println("< 게임을 시작합니다 >");
 
         while (!iscorrect) {
+            attemps++; // 시도 횟수 증가
             List<Integer> guess = new ArrayList<>();
             boolean correctInput = false;
 
@@ -55,16 +62,23 @@ public class StartGame {
                     System.out.println(e.getMessage());
                 }
             }
-           Result result = gameLogic.checkGuess(guess);
+           Result result = gameLogic.checkGuess(guess, number); // 정답과 비교
 
             System.out.println(result.getStrike() + " 스트라이크 " + result.getBall() + " 볼 " + result.getOut() + " 아웃 ");
 
-            iscorrect = gameLogic.isCorrect(result);
+            iscorrect = gameLogic.isCorrect(result); // 정답 여부 확인
 
             if (iscorrect) {
-                System.out.println("정답입니다!");
+                System.out.println("정답입니다! 총 " + attemps + "번의 시도로 맞추셨습니다.");
             }
+        }
+
+        attemptsGame.add(attemps); // 해당 게임의 시도 횟수 기록
+    }
+    // 게임 기록을 보여주는 메소드
+    public void showGameRecords() {
+        for (int i = 0 ; i < attemptsGame.size() ; i++) {
+            System.out.println((i + 1) +"번째 게임 : 시도 횟수 - " + attemptsGame.get(i));
         }
     }
 }
-
